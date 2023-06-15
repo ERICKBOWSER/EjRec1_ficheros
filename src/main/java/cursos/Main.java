@@ -6,7 +6,9 @@ package cursos;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collector;
 
 /**
@@ -49,5 +51,28 @@ public class Main {
         System.out.println("Contador de cursos: ");
         Ficheros.numeroCursosCentro(listaCursos);
         
+        Map<String, Integer> resultado = obtenerRepetidos(listaCursos);
+        for (Map.Entry<String, Integer> entry : resultado.entrySet()) {
+            Object key = entry.getKey();
+            Object val = entry.getValue();
+            System.out.println(key + ": " + val);
+        }
+        
+    }
+    
+    public static Map<String, Integer> obtenerRepetidos(List<String> lista) {
+        Map<String, Integer> map = new HashMap<>();
+                
+
+        for (String nombre : lista) {
+            if (map.containsKey(nombre)) {
+                int contador = map.get(nombre) + 1;
+                map.put(nombre, contador);
+            } else {
+                map.put(nombre, 1);
+            }
+        }
+
+        return map;
     }
 }
